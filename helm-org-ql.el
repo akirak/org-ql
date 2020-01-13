@@ -183,7 +183,9 @@ Is transformed into this query:
 
 ;;;; Functions
 
-(cl-defun helm-org-ql-source (buffers-files &key (name "helm-org-ql"))
+(cl-defun helm-org-ql-source (buffers-files &key (name "helm-org-ql")
+                                            (action helm-org-ql-actions)
+                                            persistent-action)
   "Return Helm source named NAME that searches BUFFERS-FILES with `helm-org-ql'."
   ;; Expansion of `helm-build-sync-source' macro.
   (helm-make-source name 'helm-source-sync
@@ -203,7 +205,8 @@ Is transformed into this query:
     :nohighlight t
     :volatile t
     :keymap helm-org-ql-map
-    :action helm-org-ql-actions))
+    :persistent-action persistent-action
+    :action action))
 
 (defun helm-org-ql--heading (window-width)
   "Return string for Helm for heading at point.
